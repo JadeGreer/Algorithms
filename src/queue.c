@@ -1,37 +1,47 @@
-#include <stdio.h>
-#include "queue.h"
+// Queue implementation based on a max sized array
 
 #include <stdio.h>
+#include <stdlib.h>
+#include "queue.h"
 
 #define max 100
 
-static int queue[max+1], head, tail;
+struct Queue {
+    int queue[max + 1];  // circular array
+    int head, tail; // start and end of queue
+};
 
-
-void put(int v) {
-    queue[tail++] = v;
-    if (tail > max) tail = 0;
+void put(Queue * q, int v) {
+    // add an element to the end of array
+    q->queue[q->tail++] = v;
+    if (q->tail > max) 
+        q->tail = 0;
 }
 
-int get() {
-    int t = queue[head++];
-    if (head > max) head = 0;
-    printf("%d \n", t);
+int get(Queue * q) {
+    // get element at head of queue
+    int t = q->queue[q->head++];
+    if (q->head > max) q->head = 0;
+    return t;
 } 
 
-void queue_init() {
-    head = 0; tail = 0;
+Queue * queue_init() {
+    Queue * q = (Queue *) malloc(sizeof(Queue));
+    q->head = 0;
+    q->tail = 0;
+    q->queue[q->head];
+    return q;
 }
 
-int queue_empty() {
-    return head == tail;
+int is_empty(Queue * q) {
+    return q->head == q->tail;
 }
 
-int main() {
-    queue_init();
-    put(1);
-    put(2);
-    put(3);
-    get();
-    return 0;
+void queue_free(Queue * q) {
+    free(q);
+}
+
+void print_queue(Queue * q) {
+    for (int i = 0; i <= (q->tail); i++)
+        printf("%c", q->queue[i]);
 }
