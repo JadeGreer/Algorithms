@@ -6,7 +6,7 @@
 typedef struct Node Node;
 
 struct Node {
-    int key; 
+    void * key; 
     Node *next;
 };
 
@@ -25,19 +25,21 @@ Stack * stackinit() {
     return s;
 }
 
-void push(Stack * s, int v){
+void push(Stack * s, void * v){
     s->t = (Node *) malloc(sizeof (Node));
     s->t->key = v; s->t->next = s->head->next;
     s->head->next = s->t;
 }
-int pop(Stack * s){
-    int x;
+
+void * pop(Stack * s){
+    void * x;
     s->t = s->head->next;
     s->head->next = s->t->next;
     x = s->t->key;
     free(s->t);
     return x;
 }
+
 int stackempty(Stack * s){
     return s->head->next == s->z;
 }

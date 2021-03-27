@@ -5,29 +5,35 @@
 
 int test1(){
     Stack * s = stackinit();
-    push(s, 1);
-    push(s, 2);
-    push(s, 3);
-    push(s, 4);
-    assert(pop(s) == 4);
+    int x1 = 1, x2 = 2, x3 = 3, x4 = 4;
+    push(s, &x1);
+    push(s, &x2);
+    push(s, &x3);
+    push(s, &x4);
+    int * x = ((int *) pop(s));
+    assert(*x == 4);
     return 1;
 }
+
 int test2(){
     Stack * s = stackinit();
-    push(s, 1);
-    push(s, 2);
-    push(s, 3);
-    push(s, 4);
-    int a, b, c;
-    a = pop(s); b = pop(s); c = pop(s);
-    assert( a * b + c == 14 && a * c + b == 11);
+    int x1 = 1, x2 = 2, x3 = 3, x4 = 4;
+    push(s, &x1);
+    push(s, &x2);
+    push(s, &x3);
+    push(s, &x4);
+    int * a = ((int *) pop(s));
+    int * b = ((int *) pop(s));
+    int * c = ((int *) pop(s));
+    assert( (*a) * (*b) + (*c) == 14 && (*a) * (*c) + (*b) == 11);
     return 1;
 }
 int test3(){
     Stack * s = stackinit();
-    push(s,2);
-    push(s,25);
-    push(s,1);
+    int x2 = 2, x25 = 25, x1 = 1;
+    push(s,&x2);
+    push(s,&x25);
+    push(s,&x1);
     pop(s);
     pop(s);
     assert(!stackempty(s));
